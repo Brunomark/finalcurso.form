@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Gerenciar Produtos</title>
+    <link rel="stylesheet" href="css/form.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Gerenciar Produtos</h1>
+<form id="formulario" >
+       
+
+            <div class="row">
+
+                <div class="form-group col-sm-2">
+                    <label for="cod">Cod:</label><input id="cod" type="text" class="form-control">                   
+                </div>
+
+                <div class="form-group col-sm-2">
+                    <label for="valor">Valor:</label><input id="valor" type="text" class="form-control">                   
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label for="grupo">Grupo:</label><input id="grupo" type="text" class="form-control">                   
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label for="categoria">Tipo:</label><input id="categoria" type="text" class="form-control">                   
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-12">
+                     <label for="nome">Descrição:</label>
+                     <input type="text" id="descricao" class="form-control">                  
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-secondary" onclick="novo()">Novo</button>
+                    <button type="button" class="btn btn-primary" onclick="gravar()">Gravar</button>
+                    <button type="button" class="btn btn-danger" onclick="apagar()">Apagar</button>
+                    <input type="text" id="index">
+                   
+                </div>
+            </div>
+    </form>
+        <br>
+        <table class="table table-hover">
+            <thead>
+                <th width="5%">Cod</th>
+                <th width="20%">Grupo</th>
+                <th width="70%">Descrição</th>
+                <th width="5%">Valor</th>
+            </thead>
+
+            <tbody id="tb-corpo">
+            </tbody>
+         </table>        
+       
+
+    </div>
+
+    <script>
+            var lsProdutos = [
+            { qt:0, cod:"01", valor:10, grupo:"Salsicha na chapa", categoria:"HOTDOG", descricao:"Pão, salsicha Perdigão, presunto, queijo, milho, tomate, batata palha e maionese." }
+
+          , { qt:0, cod:"02", valor:10, grupo:"Salsicha na chapa", categoria:"HOTDOG", descricao:"Pão, salsicha Perdigão, presunto, queijo, milho, tomate, batata palha e m", categoria:"HOTDOG", descricao:"Pão, Salsicha, Ovo, alface, tomate,."}
+
+          , { qt:0, cod:"04", valor:12, grupo:"Frango na Chapa", categoria:"HOTDOG", descricao:"Pão, Filé de frango, bacon, queijo, maionese, milho, tomate e alface."}
+
+          , { qt:0, cod:"04", valor:17, grupo:"Frango na Chapa", categoria:"HOTDOG", descricao:"Pão, 2 files de frango, 2 queijos, salsicha perdigão, calabresa, bacon, maionese, milho e tomate."}
+
+
+        ];
+
+        function carregarTable(){
+            tbody = '';
+            for(i in lsProdutos){
+                p = lsProdutos[i]
+                tbody += `<tr onclick='editar(${i})'> <td>${p.cod}</td> <td>${p.grupo}</td> <td>${p.descricao}</td> <td>${p.valor}</td> </tr>`
+            }
+
+            document.getElementById('tb-corpo').innerHTML = tbody;
+        }
+
+
+        function editar(id) {
+            document.getElementById("formulario").reset();
+        }
+
+
+        function editar(id){
+            p = lsProdutos[id]
+            // alert(JSON.stringify(p))
+            document.getElementById("cod").value = p.cod;
+            document.getElementById("grupo").value = p.grupo;
+            document.getElementById("descricao").value = p.descricao;
+            document.getElementById("valor").value = p.valor;
+            document.getElementById("categoria").value = p.categoria;
+
+            document.getElementById("index").value = id;
+        }
+
+        function gravar(){
+            id = document.getElementById("index").value
+            p = { qt: 0 }
+            p.cod = document.getElementById("cod").value
+            p. grupo = document.getElementById("grupo").value 
+            p.categoria = document.getElementById("categoria").value
+            p.descricao = document.getElementById("descricao").value 
+            p.valor = document.getElementById("valor").value 
+
+             //alert(JSON.stringify(p))
+
+            if(id != ''){
+                lsProdutos[id] = p
+                alert(id)
+            }
+
+            carregarTable()
+        }
+
+        carregarTable()
+
+        
+</script>
+
+
+
+</body>
+
+</html>
